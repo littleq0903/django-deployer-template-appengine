@@ -1,3 +1,18 @@
 #!/bin/bash
+
+. deployer_hooks/manage_script
+
 {{ bash_header }}
+
+if [ ! -d ./env ]; then
+    # if env is not a folder or it does not exist, create one
+    virtualenv --no-site-packages env
+fi
+
+# install requirements
+env/bin/pip install -r requirements_deployer.txt
+
+# collect static files into static folder
+manage_script collectstatic --noinput
+
 echo "$0 has been executed!"

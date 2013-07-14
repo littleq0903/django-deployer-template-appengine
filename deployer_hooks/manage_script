@@ -1,0 +1,8 @@
+#!/bin/bash
+{{ bash_header }}
+
+export PYTHONPATH="env/lib/python2.7:$SDK_LOCALTION:$SDK_LOCATION/lib/django-1.4"
+
+manage_script () {
+    env/bin/python $MANAGEPY $@ --settings=$DJANGO_SETTINGS
+}

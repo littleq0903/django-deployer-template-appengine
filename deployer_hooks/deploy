@@ -1,3 +1,26 @@
 #!/bin/bash
+
+#
+#    # deploy
+#    local("sh manage.sh deploy")
+#    # TODO: execute after_deploy
+#    run_hooks('deploy_after')
+
 {{ bash_header }}
+
+# packaging site-packages
+cp -r env/lib/python2.7/site-packages ./
+
+cd site-packages
+rm -rf *.so
+#TODO: remove all app engine built-in libraries
+rm -rf django PIL
+cd -
+
+# deploy
+$SDK_LOCATION/appcfg.py update --oauth2 .
+
+# delete copied site-package
+rm -rf site-package
+
 echo "$0 has been executed!"
